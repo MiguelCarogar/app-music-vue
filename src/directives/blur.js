@@ -3,9 +3,9 @@ const blur = {}
 function setBlur (element, binding) {
   element.style.filter = !binding.value ? 'blur(3px)' : 'none'
   element.style.cursor = !binding.value ? 'not-allowed' : 'inherit'
-  element.querySelectorAll('a').forEach(link => {
+  element.querySelectorAll('button').forEach(link => {
     if (!binding.value) {
-      link.setAtribute('disabled', true)
+      link.setAttribute('disabled', true)
     } else {
       link.removeAttribute('disabled')
     }

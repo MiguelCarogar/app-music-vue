@@ -1,8 +1,10 @@
 <template lang="pug">
   main
-    ma-notification(v-show="showNotification")
-      p(slot="body") No se encontraron resultados
-    ma-loader(v-show="isLoading")
+    transition(name="move")
+      ma-notification(v-show="showNotification")
+        p(slot="body") No se encontraron resultados
+    transition(name="move")
+      ma-loader(v-show="isLoading")
     section.section(v-show="!isLoading")
       nav.nav.has-shadow
         .container
