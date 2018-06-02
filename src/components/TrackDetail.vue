@@ -11,7 +11,7 @@
       .column.is-8
         .panel
           .panel-heading
-            h1.title {{ track.name }}
+            h1.title {{ trackTitle }}
           .panel-block
             article.media
               .media-content
@@ -26,22 +26,29 @@
 </template>
 
 <script>
-  import trackService from '@/services/track'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import trackMixin from '@/mixins/track'
   export default {
     mixins: [ trackMixin ],
-    data () {
-      return {
-        track: {}
-      }
+
+    computed: {
+      ...mapState(['track']),
+      ...mapGetters(['trackTitle'])
+    },
+
+    methods: {
+      ...mapActions(['getTrackById'])
     },
 
     created () {
       const id = this.$route.params.id
-      trackService.getById(id)
-        .then(response => {
-          this.track = response
-        })
+
+      if (!this.track || !this.track.id || this.track.id !== id) {
+        this.getTrackById({ id })
+          .then(() => {
+            console.log('Track loaded ...')
+          })
+      }
     }
   }
 </script>
